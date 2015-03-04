@@ -1,22 +1,22 @@
 #!/usr/bin/python2
 
+# Vitaly is a diligent student who never missed a lesson in his five years of studying in the university. He always does his homework on time and passes his exams in time.
+# During the last lesson the teacher has provided two strings s and t to Vitaly. The strings have the same length, they consist of lowercase English letters, string s is lexicographically smaller than string t. Vitaly wondered if there is such string that is lexicographically larger than string s and at the same is lexicographically smaller than string t. This string should also consist of lowercase English letters and have the length equal to the lengths of strings s and t. 
+
 import sys
 
-s = sys.stdin.readline().strip()
+s = list(sys.stdin.readline().strip())
 t = sys.stdin.readline().strip()
 
-output = ""
-found = False
-for i in range(len(s)):
-	if ord(t[i]) - ord(s[i]) > 1 or (ord(t[i]) > ord(s[i]) and i != len(s) - 1):
-		found = True
-		output += chr(ord(t[i])-1)
-		output += t[i+1:]
-		break
-	else:
-		output += t[i]
+z = len(s) - 1
+s[z] = chr(ord(s[z]) + 1)
+while z > 0 and ord(s[z]) > ord('z'):
+	s[z] = 'a'
+	z -= 1
+	s[z] = chr(ord(s[z]) + 1)
 
-if found:
-	print output
+s = "".join(s)
+if s < t:
+	print s
 else:
 	print "No such string"
